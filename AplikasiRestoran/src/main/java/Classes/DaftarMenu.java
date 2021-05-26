@@ -6,6 +6,8 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import main.MainAplikasiKasir;
 
 /**
  *
@@ -37,5 +39,13 @@ public class DaftarMenu {
         getMenuByKategori("Toping");
         getMenuByKategori("Minuman");
     }
-    
+            public static void main(String[] args){
+        Scanner input = new Scanner (System.in);
+        MainAplikasiKasir app = new MainAplikasiKasir();
+        app.generateDaftarMenu();
+    }
+
+    public void add(Menu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
