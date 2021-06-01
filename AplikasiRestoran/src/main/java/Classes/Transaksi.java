@@ -11,9 +11,12 @@ import java.util.ArrayList;
  *
  * @author saintone17
  */
-public class Transaksi {
+    
+
+
+    public class Transaksi {
     private String noTransaksi;
-    private String namaPemesanan;
+    private String namaPemesan;
     private String tanggal;
     private String noMeja;
     private ArrayList<Pesanan> pesanan;
@@ -21,11 +24,22 @@ public class Transaksi {
     private double pajak;
     private double totalBayar;
     
-    public Transaksi(String no_transaksi, String nm_pemesan, String tanggal, String no_meja){}
+    private double biayaServices=0;
+        
+    public Transaksi(String no_transaksi, String nm_pemesan, String tanggal, String no_meja){
+        this.noTransaksi = no_transaksi;
+        this.namaPemesan = nm_pemesan;
+        this.tanggal = tanggal;
+        this.noMeja = no_meja;
+        
+        pesanan = new ArrayList<>();
+    }
     
-    public void tambahPesanan(Pesanan pesanan) {}
-    public Pesanan getPesanan() {return null;}
-    public ArrayList<Pesanan> getSemuaPesanan() {return null;}
+    public void tambahPesanan(Pesanan pesanan) {
+        this.pesanan.add(pesanan);
+    }
+//    public Pesanan getPesanan() {return null;}
+    public ArrayList<Pesanan> getSemuaPesanan() {return pesanan;}
     public double hitungTotalBayar() {return 0;}
     public double hitungKembalian() {return 0;}
     public void cetakStruk(){}

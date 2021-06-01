@@ -6,6 +6,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import main.MainAplikasiKasir;
 
@@ -16,11 +17,16 @@ import main.MainAplikasiKasir;
 public class DaftarMenu {
 
     private ArrayList<Menu> daftarmenu;
+    
     public DaftarMenu(){
         daftarmenu = new ArrayList<>();
     }
     public void tambahMenu (Menu menu) {
         daftarmenu.add(menu);
+    }
+    
+    public ArrayList<Menu> getSemuaMenu() {
+        return daftarmenu;
     }
     public void getMenuByKategori(String kategori){
         System.out.println("======== " + kategori + " =======");
@@ -39,34 +45,51 @@ public class DaftarMenu {
         getMenuByKategori("Toping");
         getMenuByKategori("Minuman");
     }
-            public static void main(String[] args, String no_transaksi, String nama_pemesan, String tanggal, String makan_ditempat, String no_meja){
-        Scanner input = new Scanner (System.in);
-        MainAplikasiKasir app = new MainAplikasiKasir();
-        app.generateDaftarMenu();
-        
-        //mulai transaksi
-        System.out.println("======== TRANSAKSI =======");
-        
-        //ambil data transaksi
-        System.out.println("No Transaksi : ");
-        no_transaksi = input.next();
-        System.out.println("Pemesan : ");
-        nama_pemesan = input.next();
-        System.out.println("Tanggal : [dd-mm-yyyy] ");
-        tanggal = input.next();
-        System.out.println("Makan ditempat? [Y/N] ");
-        makan_ditempat = input.next();
-        
-        if (makan_ditempat. equalsIgnoreCase("Y")){
-            System.out.println("Nomor Meja : ");
-            no_meja = input.next();
-        }
-        
-        
-        
-    }
 
-    public void add(Menu menu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Menu pilihMenu() {
+        try{
+            Scanner Input = new Scanner(System.in);
+            
+            System.out.print("Nomor Menu yang dipesan : ");
+            int no_menu = Input.nextInt();
+            
+            Menu m = daftarmenu.get(no_menu-1);
+            
+            if(!m.getKategori().equalsIgnoreCase("Kuah")){
+                return m;
+        }else{
+               System.out.println("[Err] Pesan Dulu Ramen");
+               return pilihMenu();
+            }
+    }catch(IndexOutOfBoundsException err){
+        System.out.println("[Err] Pesanan Ridak tersedia");
+        return pilihMenu();
+    }catch(InputMismatchException err){
+     System.out.println("[Err] Mohon masukan nomor menu");
+     return pilihMenu();
     }
+}
+    public Menu pilihKuah() {
+        try{
+            Scanner Input = new Scanner(System.in);
+            
+            System.out.print("Kuah [sesuai nomor menu] : ");
+            int no_menu = Input.nextInt();
+            
+            Menu m = daftarmenu.get(no_menu-1);
+            
+            if(!m.getKategori().equalsIgnoreCase("Kuah")){
+                return m;
+        }else{
+               System.out.println("[Err] Bukan Menu Kuah");
+               return pilihKuah();
+            }
+    }catch(IndexOutOfBoundsException err){
+        System.out.println("[Err] Pesanan Ridak tersedia");
+        return pilihKuah();
+    }catch(InputMismatchException err){
+     System.out.println("[Err] Mohon masukan nomor kuah");
+     return pilihKuah();
+    }
+}
 }
