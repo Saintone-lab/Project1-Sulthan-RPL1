@@ -42,5 +42,66 @@ import java.util.ArrayList;
     public ArrayList<Pesanan> getSemuaPesanan() {return pesanan;}
     public double hitungTotalBayar() {return 0;}
     public double hitungKembalian() {return 0;}
-    public void cetakStruk(){}
+    public void cetakStruk(){
+    System.out.println("\n======== ALDEBARAMEN ========");
+        System.out.println("No Transaksi : "+noTransaksi);
+        System.out.println("Pemesan : "+namaPemesan);
+        System.out.println("Tanggal : "+tanggal);
+        
+        //cek jika nomor meja kosong, berarti take away
+        if(noMeja.equals("")){
+            noMeja = "Take Away";
+        }
+        
+        System.out.println("Meja : "+noMeja);
+        System.out.println("============================");
+        for (int i = 0; i < pesanan.size(); i++) {
+            Pesanan pan = pesanan.get(i);
+            Menu m = pan.getMenu();
+            String pesanan = pan.getJumlah() + " " + m.getNama_menu() + "\t" + (m.getHarga()*pan.getJumlah());
+            
+            //jika pesanan kuah, tambah spasi di awal 2
+            if (m.getKategori().equals("Kuah")) {
+                pesanan = " "+pesanan;
+            }
+            //tampilan pesanan
+            System.out.println(pesanan);
+    }
+}
+    public void setBiayaServices(double services){
+        this.biayaServices = services;
+    }
+    
+    public void setPajak(double pajak){
+        this.pajak = pajak;
+    }
+    public double hitungTotalPesanan(){
+        
+        for (int i = 0; i < pesanan.size(); i++) {
+            Pesanan pan = pesanan.get(i);
+            double harga = pan.getMenu().getHarga();
+            totalBayar += (harga * pan.getJumlah());
+        }
+        return totalBayar;
+    }
+    
+    //tambahkan
+    public double hitungPajak(){
+        return totalBayar * pajak;
+    }
+    
+    //tambahkan
+    public double hitungBiayaService(){
+        return totalBayar * biayaServices;
+    }
+    
+    //tambahkan
+    public double hitungTotalBayar(double pajak, double service) {
+        totalBayar = totalBayar + pajak + service;
+        return totalBayar;
+    }
+    
+    public double hitungKembalian(double uang_bayar) {
+        return uang_bayar - totalBayar; //bisa dibuat validator?
+    }
 }
